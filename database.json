@@ -1,0 +1,180 @@
+{
+  "Ego": [
+    {
+      "question": "A junior team member questions your authority in front of everyone.",
+      "options": {
+        "A": {"text": "Shout him down immediately.", "h_impact": -10, "r_impact": -20, "response": "You looked weak and insecure."},
+        "B": {"text": "Ignore him and seethe silently.", "h_impact": -15, "r_impact": -5, "response": "You kept the peace, but you feel resentful."},
+        "C": {"text": "Calmly ask him to elaborate, then correct him with facts.", "h_impact": 10, "r_impact": 20, "response": "Sovereign Move. You turned conflict into a teaching moment."}
+      }
+    },
+    {
+      "question": "Someone corrects a minor technical mistake you made in a group chat.",
+      "options": {
+        "A": {"text": "Write a long paragraph explaining why you were actually right.", "h_impact": -5, "r_impact": -15, "response": "You look petty and defensive."},
+        "B": {"text": "Say 'Good catch, thanks' and move on.", "h_impact": 10, "r_impact": 20, "response": "Secure men are not afraid of being wrong."}
+      }
+    },
+    {
+      "question": "A peer makes a sarcastic comment about your car's recent modifications.",
+      "options": {
+        "A": {"text": "Insult their taste and get visibly annoyed.", "h_impact": -10, "r_impact": -15, "response": "You let a minor comment dictate your emotions."},
+        "B": {"text": "Smirk, agree the mods are aggressive, and own it.", "h_impact": 15, "r_impact": 15, "response": "Unbothered. You showed supreme confidence in your choices."}
+      }
+    },
+    {
+      "question": "You are passed over for a leadership role you felt you deserved.",
+      "options": {
+        "A": {"text": "Complain to others about how unfair the system is.", "h_impact": -15, "r_impact": -20, "response": "Victim mentality. People lose respect for you."},
+        "B": {"text": "Congratulate the winner, analyze your flaws, and improve.", "h_impact": 20, "r_impact": 20, "response": "The Alpha response. Setbacks are just data for the next victory."}
+      }
+    },
+    {
+      "question": "Someone gives you unsolicited advice at the gym while you are highly focused on your cutting phase.",
+      "options": {
+        "A": {"text": "Tell them aggressively that you know what you are doing.", "h_impact": -5, "r_impact": -10, "response": "Unnecessary hostility."},
+        "B": {"text": "Nod politely, say 'I'll keep that in mind,' and return to your zone.", "h_impact": 10, "r_impact": 15, "response": "Polite but unshakeable boundaries."}
+      }
+    },
+    {
+      "question": "You lose a debate on a financial topic you have been studying heavily.",
+      "options": {
+        "A": {"text": "Change the subject quickly to save face.", "h_impact": -10, "r_impact": -5, "response": "You protected your ego, but lost an opportunity to learn."},
+        "B": {"text": "Acknowledge their point and ask them to explain their logic.", "h_impact": 15, "r_impact": 20, "response": "True intelligence is the willingness to update your mental models."}
+      }
+    }
+  ],
+  "Procrastination": [
+    {
+      "question": "You have a massive deadline tomorrow, but your friends invite you out.",
+      "options": {
+        "A": {"text": "Go out. 'I'll do it later.'", "h_impact": 10, "r_impact": -15, "response": "Temporary fun, but tomorrow you will panic."},
+        "B": {"text": "Stay home and work miserably.", "h_impact": -5, "r_impact": 10, "response": "You get the work done, but you feel burned out."},
+        "C": {"text": "Go for 1 hour, strictly, then return to work energized.", "h_impact": 10, "r_impact": 15, "response": "Balanced. You showed discipline and social value."}
+      }
+    },
+    {
+      "question": "You need to study for a major upcoming competitive exam, but the syllabus feels overwhelming today.",
+      "options": {
+        "A": {"text": "Decide to take a 'cheat day' from studying.", "h_impact": -10, "r_impact": -10, "response": "You fell behind your competition."},
+        "B": {"text": "Commit to just 25 minutes of reading the hardest section.", "h_impact": 20, "r_impact": 15, "response": "Action creates momentum. You conquered the friction."}
+      }
+    },
+    {
+      "question": "Your gym session is scheduled, but it is raining and you feel lethargic.",
+      "options": {
+        "A": {"text": "Skip it. One day won't hurt.", "h_impact": -5, "r_impact": -15, "response": "You broke a promise to yourself. Respect drops."},
+        "B": {"text": "Put on your shoes and walk out the door immediately, no thinking.", "h_impact": 20, "r_impact": 20, "response": "Discipline over motivation. Sovereign trait unlocked."}
+      }
+    },
+    {
+      "question": "You need to make a difficult phone call to resolve a bureaucratic issue.",
+      "options": {
+        "A": {"text": "Put it off until tomorrow.", "h_impact": -10, "r_impact": -10, "response": "The anxiety of the call will linger in your mind all day."},
+        "B": {"text": "Dial the number right now before your brain can make excuses.", "h_impact": 15, "r_impact": 15, "response": "You handled the friction instantly. Peace of mind restored."}
+      }
+    },
+    {
+      "question": "You have an important presentation to outline, but keep scrolling short-form videos.",
+      "options": {
+        "A": {"text": "Keep scrolling. 'Just 5 more minutes.'", "h_impact": -15, "r_impact": -15, "response": "Dopamine drain. You feel worse afterward."},
+        "B": {"text": "Toss your phone across the room and open a blank document.", "h_impact": 15, "r_impact": 15, "response": "You reclaimed control of your attention span."}
+      }
+    },
+    {
+      "question": "Your room is a mess, and it is subtly affecting your focus.",
+      "options": {
+        "A": {"text": "Ignore it and try to work in the chaos.", "h_impact": -5, "r_impact": -5, "response": "Your environment reflects your mind. Focus remains scattered."},
+        "B": {"text": "Take 10 minutes to aggressively clean and organize your workspace.", "h_impact": 15, "r_impact": 10, "response": "You established order. Your productivity spikes."}
+      }
+    }
+  ],
+  "Anxiety": [
+    {
+      "question": "You are assigned to present a complex slide on corporate governance to a large audience.",
+      "options": {
+        "A": {"text": "Read directly from the slides, avoiding eye contact.", "h_impact": -10, "r_impact": -15, "response": "You survived, but lost the audience's respect."},
+        "B": {"text": "Pause, take a deep breath, and speak slowly to the back of the room.", "h_impact": 20, "r_impact": 20, "response": "Commanding presence. You controlled the room's tempo."}
+      }
+    },
+    {
+      "question": "You are at a high-end networking event and do not know a single person.",
+      "options": {
+        "A": {"text": "Stand in the corner looking at your phone.", "h_impact": -15, "r_impact": -15, "response": "You became invisible."},
+        "B": {"text": "Walk up to the largest group, smile, and introduce yourself confidently.", "h_impact": 15, "r_impact": 20, "response": "High-risk, high-reward. You immediately established social value."}
+      }
+    },
+    {
+      "question": "An attractive person makes sustained eye contact with you across the room.",
+      "options": {
+        "A": {"text": "Look away quickly and pretend you didn't notice.", "h_impact": -10, "r_impact": -10, "response": "You signaled low confidence."},
+        "B": {"text": "Hold the gaze, give a slight, composed smile, and hold your ground.", "h_impact": 15, "r_impact": 20, "response": "Sovereign eye contact. You communicated unshakeable confidence."}
+      }
+    },
+    {
+      "question": "A professor puts you on the spot with a difficult question you don't know the answer to.",
+      "options": {
+        "A": {"text": "Stutter and try to make up a fake answer.", "h_impact": -15, "r_impact": -20, "response": "They saw right through it. Credibility destroyed."},
+        "B": {"text": "Say calmly, 'I don't have that exact data, but here is how I would approach finding it.'", "h_impact": 15, "r_impact": 20, "response": "Brilliant pivot. You showed competence even without the answer."}
+      }
+    },
+    {
+      "question": "You arrive at an event and realize you are the only one dressed up formally.",
+      "options": {
+        "A": {"text": "Feel incredibly awkward and try to hide in the back.", "h_impact": -10, "r_impact": -10, "response": "Your insecurity ruined your evening."},
+        "B": {"text": "Own the look. Act as if everyone else is underdressed.", "h_impact": 20, "r_impact": 20, "response": "Elijah mentality. The clothes don't wear you; you wear the clothes."}
+      }
+    },
+    {
+      "question": "A demanding peer asks you to do a heavy favor that will ruin your schedule.",
+      "options": {
+        "A": {"text": "Say yes just to avoid the awkwardness of saying no.", "h_impact": -15, "r_impact": -10, "response": "You sacrificed your own goals out of fear."},
+        "B": {"text": "Hold eye contact and say, 'I can't commit to that right now, my plate is full.'", "h_impact": 15, "r_impact": 15, "response": "A gentleman knows his boundaries and enforces them cleanly."}
+      }
+    }
+  ],
+  "Anger": [
+    {
+      "question": "A driver carelessly scrapes your bumper in heavy bridge traffic and acts like it's your fault.",
+      "options": {
+        "A": {"text": "Get out of the car and start a screaming match.", "h_impact": -20, "r_impact": -20, "response": "You lost emotional control over a piece of metal."},
+        "B": {"text": "Take a breath, step out calmly, take photos, and ask for insurance details.", "h_impact": 15, "r_impact": 20, "response": "Ice in your veins. You handled the crisis like a professional."}
+      }
+    },
+    {
+      "question": "Someone sends you a highly disrespectful text message.",
+      "options": {
+        "A": {"text": "Instantly type out an angry, emotional paragraph back.", "h_impact": -15, "r_impact": -15, "response": "You gave them exactly what they wanted: power over your emotions."},
+        "B": {"text": "Leave them on read. Address it in person later with cold, calm logic.", "h_impact": 20, "r_impact": 20, "response": "Silence is a weapon. You retained absolute authority."}
+      }
+    },
+    {
+      "question": "A teammate takes credit for your work during a project update.",
+      "options": {
+        "A": {"text": "Interrupt them angrily and accuse them of lying.", "h_impact": -10, "r_impact": -15, "response": "You look unhinged, even if you are right."},
+        "B": {"text": "Smile calmly, and seamlessly add high-level details only you would know to expose them.", "h_impact": 20, "r_impact": 20, "response": "Checkmate. You destroyed their credibility without raising your voice."}
+      }
+    },
+    {
+      "question": "You lose a competitive game or match because of a bad referee call.",
+      "options": {
+        "A": {"text": "Argue aggressively and throw a tantrum.", "h_impact": -15, "r_impact": -20, "response": "Childish behavior. No one respects a sore loser."},
+        "B": {"text": "Shake hands, walk away, and channel the aggression into the next training session.", "h_impact": 15, "r_impact": 20, "response": "Stoic endurance. The loss forged you into something sharper."}
+      }
+    },
+    {
+      "question": "Your laptop crashes and you lose 30 minutes of unsaved work.",
+      "options": {
+        "A": {"text": "Slam the desk and let it ruin your entire mood for the day.", "h_impact": -20, "r_impact": -10, "response": "You let a minor tech issue break your frame."},
+        "B": {"text": "Sigh once, restart the machine, and immediately begin typing.", "h_impact": 15, "r_impact": 15, "response": "Resilience. You don't cry over spilled milk."}
+      }
+    },
+    {
+      "question": "Someone mocks a goal you are working extremely hard to achieve.",
+      "options": {
+        "A": {"text": "Defend yourself and try to convince them you will succeed.", "h_impact": -10, "r_impact": -15, "response": "Wolves do not lose sleep over the opinion of sheep."},
+        "B": {"text": "Look at them with blank amusement, say nothing, and let the silence hang.", "h_impact": 20, "r_impact": 20, "response": "The ultimate power move. Their insult dissolved into nothing."}
+      }
+    }
+  ]
+}
