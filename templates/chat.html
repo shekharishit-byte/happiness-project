@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Coach — The Happiness Index</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --cream: #f5f0e8;
+      --dark: #0d0d0d;
+      --dark2: #1a1814;
+      --dark3: #1e1c18;
+      --muted: #7a7369;
+      --green: #4caf7d;
+      --red: #c0574a;
+      --blue: #4c8ecf;
+    }
+
+    html, body { height: 100%; background: var(--dark); color: var(--cream); font-family: 'DM Sans', sans-serif; overflow: hidden; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    .glow { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+    .glow-1 { width: 500px; height: 500px; background: rgba(201,168,76,0.06); top: -150px; right: -150px; }
+    .glow-2 { width: 350px; height: 350px; background: rgba(76,142,207,0.05); bottom: 0; left: -100px; }
+
+    /* ── LAYOUT ── */
+    .chat-layout {
+      position: relative; z-index: 1;
+      height: 100vh;
+      display: flex; flex-direction: column;
+      max-width: 720px; margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* ── HEADER ── */
+    .chat-header {
+      padding: 1.25rem 0 1rem;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .coach-identity { display: flex; align-items: center; gap: 0.85rem; }
+
+    .coach-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+
+    .coach-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700; color: var(--cream);
+    }
+    .coach-sub { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
+
+    .header-right { display: flex; align-items: center; gap: 1rem; }
+
+    .msg-counter {
+      font-size: 0.7rem; color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 99px; padding: 0.25rem 0.75rem;
+    }
+
+    .back-link {
+      font-size: 0.75rem; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--gold); }
+
+    /* ── MESSAGES ── */
+    .messages {
+      flex: 1; overflow-y: auto;
+      padding: 1.5rem 0;
+      display: flex; flex-direction: column; gap: 1rem;
+      scroll-behavior: smooth;
+    }
+
+    .messages::-webkit-scrollbar { width: 4px; }
+    .messages::-webkit-scrollbar-track { background: transparent; }
+    .messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
+
+    .msg {
+      display: flex; gap: 0.75rem; align-items: flex-end;
+      animation: msgIn 0.35s ease both;
+    }
+
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg.user { flex-direction: row-reverse; }
+
+    .msg-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; flex-shrink: 0;
+    }
+
+    .msg.coach .msg-avatar { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--dark); }
+    .msg.user  .msg-avatar { background: rgba(255,255,255,0.08); color: var(--muted); }
+
+    .msg-bubble {
+      max-width: 78%;
+      padding: 0.85rem 1.1rem;
+      border-radius: 18px;
+      font-size: 0.9rem; line-height: 1.65;
+    }
+
+    .msg.coach .msg-bubble {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-bottom-left-radius: 4px;
+      color: var(--cream);
+    }
+
+    .msg.user .msg-bubble {
+      background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.08));
+      border: 1px solid rgba(201,168,76,0.2);
+      border-bottom-right-radius: 4px;
+      color: var(--cream);
+    }
+
+    /* ── TYPING INDICATOR ── */
+    .typing { display: none; }
+    .typing.visible { display: flex; }
+
+    .typing-dots {
+      display: flex; gap: 4px; align-items: center;
+      padding: 0.85rem 1.1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 18px; border-bottom-left-radius: 4px;
+    }
+
+    .typing-dots span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--muted);
+      animation: bounce 1.2s infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* ── LIMIT REACHED ── */
+    .limit-msg {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      line-height: 1.6;
+    }
+
+    /* ── INPUT AREA ── */
+    .input-area {
+      padding: 1rem 0 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    .input-row {
+      display: flex; gap: 0.75rem; align-items: flex-end;
+    }
+
+    textarea {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      resize: none;
+      min-height: 48px;
+      max-height: 120px;
+      line-height: 1.5;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: rgba(201,168,76,0.4);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.07);
+    }
+
+    textarea::placeholder { color: var(--muted); }
+    textarea:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .send-btn {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; border-radius: 12px;
+      color: var(--dark); font-size: 1.1rem;
+      cursor: pointer; flex-shrink: 0;
+      transition: all 0.2s ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .send-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.3); }
+    .send-btn:active { transform: translateY(0); }
+    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* ── SUGGESTED STARTERS ── */
+    .starters {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .starter-btn {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 99px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.75rem; color: var(--muted);
+      cursor: pointer; transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .starter-btn:hover {
+      border-color: rgba(201,168,76,0.3);
+      color: var(--gold);
+      background: rgba(201,168,76,0.05);
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<div class="chat-layout">
+
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="coach-identity">
+      <div class="coach-avatar">🧠</div>
+      <div>
+        <div class="coach-name">Your Coach</div>
+        <div class="coach-sub">Knows your journey · {{ title }}</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="msg-counter" id="counter">8 messages left</span>
+      <a href="/report" class="back-link">← Back to Report</a>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages" id="messages">
+
+    <!-- Opening message from coach -->
+    <div class="msg coach">
+      <div class="msg-avatar">🧠</div>
+      <div class="msg-bubble">
+        Hey <strong>{{ name }}</strong>. I've reviewed your journey through <strong>{{ weakness }}</strong>.<br><br>
+        You ended with <strong>{{ happiness }}</strong> Happiness and <strong>{{ respect }}</strong> Respect — that makes you <em>{{ title }}</em>.<br><br>
+        {% if happiness > respect %}
+          You seem to prioritize your own peace over what others think. That's rare. What's on your mind?
+        {% elif respect > happiness %}
+          Interesting — your Respect score outran your Happiness. You care about how you show up for others, sometimes at the cost of yourself. Want to talk about that?
+        {% else %}
+          You're balanced — equally concerned with your wellbeing and how others see you. What would you like to explore?
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Typing indicator -->
+    <div class="msg coach typing" id="typing">
+      <div class="msg-avatar">🧠</div>
+      <div class="typing-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Input -->
+  <div class="input-area">
+    <div class="starters" id="starters">
+      <button class="starter-btn" onclick="useStarter(this)">Why did I score this way?</button>
+      <button class="starter-btn" onclick="useStarter(this)">What's my biggest pattern?</button>
+      <button class="starter-btn" onclick="useStarter(this)">How do I actually improve?</button>
+      <button class="starter-btn" onclick="useStarter(this)">What does my weakness say about me?</button>
+    </div>
+    <div class="input-row">
+      <textarea id="input" placeholder="Ask your coach anything..." rows="1"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const messagesEl = document.getElementById('messages');
+  const inputEl    = document.getElementById('input');
+  const sendBtn    = document.getElementById('sendBtn');
+  const typingEl   = document.getElementById('typing');
+  const counterEl  = document.getElementById('counter');
+  const startersEl = document.getElementById('starters');
+  let remaining    = 8;
+  let startersHidden = false;
+
+  // Auto-resize textarea
+  inputEl.addEventListener('input', () => {
+    inputEl.style.height = 'auto';
+    inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
+  });
+
+  // Send on Enter (Shift+Enter for newline)
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  function useStarter(btn) {
+    inputEl.value = btn.textContent;
+    inputEl.focus();
+  }
+
+  function hideStarters() {
+    if (!startersHidden) {
+      startersEl.style.display = 'none';
+      startersHidden = true;
+    }
+  }
+
+  function appendMessage(role, text) {
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+    div.innerHTML = `
+      <div class="msg-avatar">${role === 'coach' ? '🧠' : '👤'}</div>
+      <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>
+    `;
+    messagesEl.insertBefore(div, typingEl);
+    scrollToBottom();
+  }
+
+  function scrollToBottom() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function updateCounter(n) {
+    remaining = n;
+    counterEl.textContent = `${n} message${n !== 1 ? 's' : ''} left`;
+    if (n <= 2) counterEl.style.color = '#c0574a';
+    else if (n <= 4) counterEl.style.color = '#e8c97a';
+  }
+
+  function showLimit() {
+    inputEl.disabled = true;
+    sendBtn.disabled = true;
+    inputEl.placeholder = "Session ended.";
+    const div = document.createElement('div');
+    div.className = 'limit-msg';
+    div.innerHTML = `Your coaching session has ended. You used all 8 messages.<br>
+      <a href="/" style="color:var(--gold);text-decoration:none;">Start a new journey</a> to talk again.`;
+    messagesEl.insertBefore(div, typingEl);
+    scrollToBottom();
+  }
+
+  async function sendMessage() {
+    const text = inputEl.value.trim();
+    if (!text || remaining <= 0) return;
+
+    hideStarters();
+    appendMessage('user', text);
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+    sendBtn.disabled = true;
+    inputEl.disabled = true;
+
+    // Show typing
+    typingEl.classList.add('visible');
+    scrollToBottom();
+
+    try {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await res.json();
+      typingEl.classList.remove('visible');
+
+      if (data.limit_reached) {
+        showLimit();
+        return;
+      }
+
+      if (data.reply) {
+        appendMessage('coach', data.reply);
+        updateCounter(data.remaining);
+        if (data.remaining <= 0) {
+          showLimit();
+          return;
+        }
+      }
+
+    } catch (err) {
+      typingEl.classList.remove('visible');
+      appendMessage('coach', 'Something went wrong. Please try again.');
+    }
+
+    sendBtn.disabled = false;
+    inputEl.disabled = false;
+    inputEl.focus();
+  }
+
+  scrollToBottom();
+</script>
+
+</body>
+</html>
